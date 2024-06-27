@@ -17,8 +17,19 @@ ENV COMPOSER_ALLOW_SUPERUSER 1
 ENV COMPOSER_HOME /composer
 ENV PATH $PATH:/composer/vendor/bin
 
+# グループとユーザー追加(root回避)
+RUN groupadd -g 1000 tomo || true \
+    && useradd -u 1000 -g 1000 -m tomo
+
+# ディレクトリ所有者変更(root回避)
+RUN chown -R tomo:tomo /var/www
+
 # WorkDir Path setting
 WORKDIR /var/www
 
 # Laravel Package install
 RUN composer global require "laravel/installer"
+
+# コンテナを非rootユーザーで実行
+USER tomo
+
