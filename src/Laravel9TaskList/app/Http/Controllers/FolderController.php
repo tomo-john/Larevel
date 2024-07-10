@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Folder;
+use App\Http\Requests\CreateFolder;
 
 class FolderController extends Controller
 {
@@ -23,10 +24,11 @@ class FolderController extends Controller
      *  【フォルダの作成機能】
      *  
      *  POST /folders/create
-     *  @param Request $request （リクエストクラスの$request）
-     *  @return \Illuminate\Http\RedirectResponse
+ 		 *  @param CreateFolder $request （Requestクラスの機能は引き継がれる）
+ 		 *  @return \Illuminate\Http\RedirectResponse
+ 		 *  @var App\Http\Requests\CreateFolder
      */
-    public function create(Request $request)
+    public function create(CreateFolder $request)
     {
         $folder = new Folder();
         $folder->title = $request->title;
