@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Folder;
 use App\Models\Task;
+use App\Http\Requests\CreateTask;
 
 class TaskController extends Controller
 {
@@ -43,5 +44,27 @@ class TaskController extends Controller
 						'folder_id' => $id
 				]);
 		}
+
+		/**
+     *  【タスクの作成機能】
+     *
+     *  POST /folders/{id}/tasks/create
+     *  @param int $id
+     *  @param CreateTask $request
+     *  @return \Illuminate\Http\RedirectResponse
+     */
+    public function create(int $id, CreateTask $request)
+    {
+        $folder = Folder::find($id);
+
+        $task = new Task();
+        $task->title = $request->title;
+        $task->due_date = $request->due_date;
+        $folder->tasks()->save($task);
+
+        return redirect()->route('tasks.index', [
+            'id' => $folder->id,
+        ]);
+    }
 
 }

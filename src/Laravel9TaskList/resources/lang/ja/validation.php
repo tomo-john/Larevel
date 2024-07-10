@@ -33,7 +33,7 @@ return [
     'boolean'              => ':attributeは、trueかfalseを指定してください。',
     'confirmed'            => ':attributeと、確認フィールドとが、一致していません。',
     'current_password'     => 'パスワードが正しくありません。',
-    'date'                 => ':attributeには有効な日付を指定してください。',
+    'date'                 => ':attributeには日付を指定してください。',
     'date_equals'          => ':attributeには、:dateと同じ日付けを指定してください。',
     'date_format'          => ':attributeは:format形式で指定してください。',
     'different'            => ':attributeと:otherには、異なった内容を指定してください。',
