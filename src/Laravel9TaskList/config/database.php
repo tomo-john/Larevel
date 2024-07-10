@@ -35,6 +35,13 @@ return [
 
     'connections' => [
 
+        /* メモリ上（テストコードが実行し終わると消える）のDBを使う設定 */
+        'sqlite_testing' => [
+            'driver' => 'sqlite',
+            'database' => ':memory:',
+            'prefix' => '',
+        ],
+
         'sqlite' => [
             'driver' => 'sqlite',
             'url' => env('DATABASE_URL'),
