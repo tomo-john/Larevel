@@ -26,7 +26,19 @@ class CreateFolder extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required',
+            'title' => 'required|max:20',
         ];
     }
+
+		/**
+		 * リクエストのnameなどの属性名を再定義するメソッド
+		 *
+		 * @return array<string>
+		 */
+		public function attributes()
+		{
+				return [
+						'title' => 'フォルダ名',
+				];
+		}
 }
