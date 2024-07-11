@@ -10,10 +10,7 @@
 *   用途：javascriptライブラリー「flatpickr」のスタイルシートを指定
 -->
 @section('styles')
-    <!-- 「flatpickr」の デフォルトスタイルシートをインポート -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-    <!-- 「flatpickr」の ブルーテーマの追加スタイルシートをインポート -->
-    <link rel="stylesheet" href="https://npmcdn.com/flatpickr/dist/themes/material_blue.css">
+  @include('share.flatpickr.styles')
 @endsection
 
 <!--
@@ -65,13 +62,5 @@
 *   用途：javascriptライブラリー「flatpickr」のインポート
 -->
 @section('scripts')
-<script src="https://npmcdn.com/flatpickr/dist/flatpickr.min.js"></script>
-<script src="https://npmcdn.com/flatpickr/dist/l10n/ja.js"></script>
-<script>
-    flatpickr(document.getElementById('due_date'), {
-        locale: 'ja',
-        dateFormat: "Y/m/d",
-        minDate: new Date()
-    });
-</script>
+   @include('share.flatpickr.scripts')
 @endsection
