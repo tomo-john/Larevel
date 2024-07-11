@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\FolderController;
 use App\Http\Controllers\HomeController;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -53,4 +54,7 @@ Route::post('/folders/{id}/delete', [FolderController::class,"delete"]);
 /* tasks new delete page */
 Route::get('/folders/{id}/tasks/{task_id}/delete', [TaskController::class,"showDeleteForm"])->name('tasks.delete');
 Route::post('/folders/{id}/tasks/{task_id}/delete', [TaskController::class,"delete"]);
+
+/* certification page （会員登録・ログイン・ログアウト・パスワード再設定など） */
+Auth::routes();
 
