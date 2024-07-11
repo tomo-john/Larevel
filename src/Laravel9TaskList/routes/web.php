@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 /* TaskControllerクラスを名前空間でインポートする */
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\FolderController;
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,9 +18,14 @@ use App\Http\Controllers\FolderController;
 |
 */
 
+/* home page */
+Route::get('/', [HomeController::class,"index"])->name('home');
+
+/* homepage commentout
 Route::get('/', function () {
     return view('welcome');
 });
+*/
 
 /* index page */
 Route::get("/folders/{id}/tasks", [TaskController::class,"index"])->name("tasks.index");
