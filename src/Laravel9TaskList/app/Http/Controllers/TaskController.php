@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Folder;
 use App\Models\Task;
 use App\Http\Requests\CreateTask;
+use App\Http\Requests\EditTask;
 
 class TaskController extends Controller
 {
@@ -82,6 +83,30 @@ class TaskController extends Controller
 
         return view('tasks/edit', [
             'task' => $task,
+        ]);
+    }
+
+    /**
+     *  【タスクの編集機能】
+     *  機能：タスクが編集されたらDBを更新処理をしてタスク一覧にリダイレクトする
+     *  
+     *  POST /folders/{id}/tasks/{task_id}/edit
+     *  @param int $id
+     *  @param int $task_id
+     *  @param EditTask $request
+     *  @return \Illuminate\Http\RedirectResponse
+     */
+    public function edit(int $id, int $task_id, EditTask $request)
+    {
+        $task = Task::find($task_id);
+
+        $task->title = $request->title;
+        $task->status = $request->status;
+        $task->due_date = $request->due_date;
+        $task->save();
+
+        return redirect()->route('tasks.index', [
+            'id' => $task->folder_id,
         ]);
     }
 
