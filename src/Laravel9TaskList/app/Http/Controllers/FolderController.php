@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Folder;
 use App\Http\Requests\CreateFolder;
 use App\Http\Requests\EditFolder;
+use Illuminate\Support\Facades\Auth;
 
 class FolderController extends Controller
 {
@@ -17,9 +18,11 @@ class FolderController extends Controller
      */
     public function showCreateForm()
     {
-        return view('folders/create');
-    }
+        // ログインユーザーに紐づくフォルダだけを取得
+        $folders = Auth::user()->folders;
 
+        return view('folders/create', compact('folders'));
+    }
 
     /**
      *  【フォルダの作成機能】
@@ -33,7 +36,8 @@ class FolderController extends Controller
     {
         $folder = new Folder();
         $folder->title = $request->title;
-        $folder->save();
+        // （ログイン）ユーザーに紐づけて保存する
+        Auth::user()->folders()->save($folder);
 
         return redirect()->route('tasks.index', [
             'id' => $folder->id,

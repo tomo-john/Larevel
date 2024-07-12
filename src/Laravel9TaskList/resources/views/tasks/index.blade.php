@@ -35,15 +35,17 @@
                 <div class="list-group">
                     <table class="table foler-table">
                         @foreach($folders as $folder)
-                        <tr>
-                            <td>
+                          @if($folder->user_id === Auth::user()->id)
+                            <tr>
+                              <td>
                                 <a href="{{ route('tasks.index', ['id' => $folder->id]) }}" class="list-group-item {{ $folder_id === $folder->id ? 'active' : '' }}">
-                                    {{ $folder->title }}
+                                {{ $folder->title }}
                                 </a>
-                            </td>
-                            <td><a href="{{ route('folders.edit', ['id' => $folder->id]) }}">編集</a></td>
-                            <td><a href="{{ route('folders.delete', ['id' => $folder->id]) }}">削除</a></td>
-                        </tr>
+                              </td>
+                              <td><a href="{{ route('folders.edit', ['id' => $folder->id]) }}">編集</a></td>
+                              <td><a href="{{ route('folders.delete', ['id' => $folder->id]) }}">削除</a></td>
+                            </tr>
+                          @endif
                         @endforeach
                     </table>
                 </div>
