@@ -20,6 +20,7 @@ class TaskController extends Controller
     */ 
 		public function index(Folder $folder)
 		{
+
 				/** @var App\Models\User **/
 				$user = auth()->user();
 				$folders = $user->folders()->get();

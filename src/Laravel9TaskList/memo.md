@@ -5,5 +5,5 @@ php artisan migrate:fresh --seed
 ```
 
 ### 2024/07/16
-No.14 
+No.15 ポリシーをミドルウェアを介して使用する 
 
