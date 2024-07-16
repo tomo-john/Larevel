@@ -86,10 +86,13 @@ class TaskController extends Controller
 		 */
 		public function showEditForm(Folder $folder, Task $task)
 		{
+        /* フォルダとタスクのリレーションを確認する */
+				$this->checkRelation($folder, $task);
+
 				/** @var App\Models\User **/
 				$user = Auth::user();
 				$folder = $user->folders()->findOrFail($folder->id);
-				$task = $folder->tasks()->findOrFail($task->id);
+        $task = $folder->tasks()->findOrFail($task->id);
 
 				return view('tasks/edit', [
 						'task' => $task,
@@ -107,10 +110,13 @@ class TaskController extends Controller
 		 */
 		public function edit(Folder $folder, Task $task, EditTask $request)
 		{
+				/* フォルダとタスクのリレーションを確認する */
+				$this->checkRelation($folder, $task);
+
 				/** @var App\Models\User **/
 				$user = Auth::user();
 				$folder = $user->folders()->findOrFail($folder->id);
-				$task = $folder->tasks()->findOrFail($task->id);
+        $task = $folder->tasks()->findOrFail($task->id);
 
 				$task->title = $request->title;
 				$task->status = $request->status;
@@ -132,6 +138,9 @@ class TaskController extends Controller
 		 */
 		public function showDeleteForm(Folder $folder, Task $task)
 		{
+        // フォルダーとタスクのリレーション（関連性）をチェックする
+        $this->checkRelation($folder, $task);
+
 				/** @var App\Models\User **/
 				$user = Auth::user();
 				$folder = $user->folders()->findOrFail($folder->id);
@@ -152,6 +161,9 @@ class TaskController extends Controller
 		 */
 		public function delete(Folder $folder, Task $task)
 		{
+        // フォルダーとタスクのリレーション（関連性）をチェックする
+        $this->checkRelation($folder, $task);
+
 				/** @var App\Models\User **/
 				$user = Auth::user();
 				$folder = $user->folders()->findOrFail($folder->id);
@@ -162,5 +174,12 @@ class TaskController extends Controller
 				return redirect()->route('tasks.index', [
 						'folder' => $task->folder_id
 				]);
+		}
+
+		private function checkRelation(Folder $folder, Task $task)
+		{
+				if ($folder->id !== $task->folder_id) {
+						abort(404);
+				}
 		}
 }
