@@ -1,4 +1,3 @@
-# Laravel_1
+# Laravel
 
-Laravel検証用(Mac)
-
+Laravel検証用
